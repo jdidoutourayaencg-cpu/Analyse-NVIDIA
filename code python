@@ -1,0 +1,35 @@
+#Importing Libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+#For ignoring warning
+import warnings
+warnings.filterwarnings("ignore")
+df=pd.read_csv('/content/drive/MyDrive/NVDA/NVDA(2).csv')
+df
+# Convert the Date column from object to datetime format
+df['Date'] = pd.to_datetime(df['Date'])
+
+# Ensure all price-related columns are in numeric format
+df['Open'] = pd.to_numeric(df['Open'], errors='coerce')
+df['High'] = pd.to_numeric(df['High'], errors='coerce')
+df['Low'] = pd.to_numeric(df['Low'], errors='coerce')
+df['Close'] = pd.to_numeric(df['Close'], errors='coerce')
+df['Adj Close'] = pd.to_numeric(df['Adj Close'], errors='coerce')
+df['Volume'] = pd.to_numeric(df['Volume'], errors='coerce')
+
+# Optional: Sort by date just like in time-series preprocessing
+df = df.sort_values(by='Date').reset_index(drop=True)# Let's check the distribution of the Volume variable.
+sns.histplot(df['Volume'], bins=30, kde=True)
+plt.title('Volume Distribution');
+plt.xlabel('Volume')
+plt.ylabel('Frequency')#Correlation
+cmap=sns.diverging_palette(260,-10,s=50, l=75, n=6,
+as_cmap=True)
+plt.subplots(figsize=(18,18))
+sns.heatmap(cn,cmap=cmap,annot=True, square=True)
+plt.show()kot = cn[cn>=.40]
+plt.figure(figsize=(12,8))
+sns.heatmap(kot, cmap="Blues")
